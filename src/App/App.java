@@ -7,24 +7,42 @@ public class App {
         // creates one million sql sentences for the creation of information
         int sentences = 0;
         int idCounter = 1;
+        int total = 1000;
 
-        while (sentences < 1000000) {
+        while (sentences < total) {
             // each operator creates 3 sql sentences
-            if (sentences <= 100000) {
+            if (sentences <= total / 10) {
                 operadores(idCounter);
                 sentences += 3;
-            } else if (sentences <= 200000) {
+            } else if (sentences <= 2 * total / 10) {
                 // each alojamiento creates 2 sql sentences
                 alojamientos(idCounter);
                 sentences += 2;
-            } else if (sentences <= 400000) {
+            } else if (sentences <= 4 * total / 10) {
                 // each hospedaje creates up to 3 sql sentences
                 hospedajes(idCounter);
-                sentences += 4;
+                sentences += 3;
             } else {
-                break;
+                // each cliente creates 2 sql sentences
+                clientes(idCounter);
+                sentences += 2;
             }
             idCounter++;
+        }
+
+    }
+
+    public static void clientes(int id) {
+        // creates a sql sentence for the creation of a Cliente
+        // example: INSERT INTO A_Cliente (Nombre, DocumentoDeIdentidad, Datos) VALUES
+        // ('Juan Perez', 98347298, 1);
+
+        // the name of the cliente can be 'Juan Perez', 'Pedro Perez', 'Pablo Perez',
+        // 'Carlos Perez', 'Pepe Perez'
+        String nombre = "";
+        int nombreRandom = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
+        if (nombreRandom == 1) {
+            nombre = "Juan Perez";
         }
 
     }
