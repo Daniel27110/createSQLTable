@@ -11,25 +11,67 @@ public class App {
 
         while (sentences < total) {
             // each operator creates 3 sql sentences
-            if (sentences <= total / 10) {
+            if (sentences <= total / 8) {
                 operadores(idCounter);
                 sentences += 3;
-            } else if (sentences <= 2 * total / 10) {
+            } else if (sentences <= 2 * total / 8) {
                 // each alojamiento creates 2 sql sentences
                 alojamientos(idCounter);
                 sentences += 2;
-            } else if (sentences <= 4 * total / 10) {
+            } else if (sentences <= 4 * total / 8) {
                 // each hospedaje creates up to 3 sql sentences
                 hospedajes(idCounter);
                 sentences += 3;
-            } else {
+            } else if (sentences <= 5 * total / 8) {
                 // each cliente creates 2 sql sentences
                 clientes(idCounter);
                 sentences += 2;
+            } else {
+                // each reserva creates 1 sql sentence
+                reservas(idCounter);
+                sentences += 1;
             }
             idCounter++;
         }
 
+    }
+
+    public static void reservas(int id) {
+        // creates a sql sentence for the creation of a Reserva
+        // example INSERT INTO A_Reserva (Id, FechaInicio, DuracionNoches,
+        // TiempoLimiteCancelacion, Hospedaje, Cliente, Estado, ReservaMultiple) VALUES
+        // (9, date '2025-01-01', 30, 7, 2, 23421344, 'Activa', 0);
+
+        // the fechaInicio is between 2018-01-01 and 2025-01-01
+        int year = (int) Math.floor(Math.random() * (2025 - 2018 + 1) + 2018);
+        int month = (int) Math.floor(Math.random() * (12 - 1 + 1) + 1);
+        int day = (int) Math.floor(Math.random() * (28 - 1 + 1) + 1);
+
+        // the duracionNoches is between 1 and 30
+        int duracionNoches = (int) Math.floor(Math.random() * (30 - 1 + 1) + 1);
+
+        // the tiempoLimiteCancelacion is between 1 and 7
+        int tiempoLimiteCancelacion = (int) Math.floor(Math.random() * (7 - 1 + 1) + 1);
+
+        // the hospedaje is between 1 and 1000
+        int hospedaje = (int) Math.floor(Math.random() * (1000 - 1 + 1) + 1);
+
+        // the cliente is between 100000 and 1000000
+        int cliente = (int) Math.floor(Math.random() * (1000000 - 100000 + 1) + 100000);
+
+        // the estado can be 'Activa', 'Cancelada'
+        String estado = "";
+        int estadoRandom = (int) Math.floor(Math.random() * (2 - 1 + 1) + 1);
+        if (estadoRandom == 1) {
+            estado = "Activa";
+        } else if (estadoRandom == 2) {
+            estado = "Cancelada";
+        }
+
+        System.out.println(
+                "INSERT INTO A_Reserva (Id, FechaInicio, DuracionNoches, TiempoLimiteCancelacion, Hospedaje, Cliente, Estado, ReservaMultiple) VALUES");
+        System.out.println("(" + id + ", date '" + year + "-" + month + "-" + day + "', " + duracionNoches + ",  "
+                + tiempoLimiteCancelacion + ", " + hospedaje + ", " + cliente + ", '" + estado + "', 0);");
     }
 
     public static void clientes(int id) {
@@ -43,7 +85,24 @@ public class App {
         int nombreRandom = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
         if (nombreRandom == 1) {
             nombre = "Juan Perez";
+        } else if (nombreRandom == 2) {
+            nombre = "Pedro Perez";
+        } else if (nombreRandom == 3) {
+            nombre = "Pablo Perez";
+        } else if (nombreRandom == 4) {
+            nombre = "Carlos Perez";
+        } else if (nombreRandom == 5) {
+            nombre = "Pepe Perez";
         }
+
+        // the documentoDeIdentidad is between 100000 and 1000000
+        int documentoDeIdentidad = (int) Math.floor(Math.random() * (1000000 - 100000 + 1) + 100000);
+
+        // we create a new datos
+        datos(id);
+
+        System.out.println("INSERT INTO A_Cliente (Nombre, DocumentoDeIdentidad, Datos) VALUES");
+        System.out.println("('" + nombre + "', " + documentoDeIdentidad + ", " + id + ");");
 
     }
 
