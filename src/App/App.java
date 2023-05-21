@@ -311,9 +311,9 @@ public class App {
         int duracionDisponibilidad = (int) Math.floor(Math.random() * (1000 - 1 + 1) + 1);
 
         System.out.println(
-                "INSERT INTO A_AlojamientoAbstract (Id, Nombre, Direccion, Capacidad, Ciudad, Operador, Fechainiciodisponibilidad, Duraciondisponibilidad) VALUES");
+                "INSERT INTO A_AlojamientoAbstract (Id, Nombre, Direccion, Capacidad, Ciudad, Operador, Fechainiciodisponibilidad, Duraciondisponibilidad, Activo) VALUES");
         System.out.println("(" + id + ", '" + nombre + "', '" + direccion + "', " + capacidad + ", '" + ciudad + "', "
-                + operador + ", DATE '" + fechaInicioDisponibilidad + "', " + duracionDisponibilidad + "', " + 1
+                + operador + ", DATE '" + fechaInicioDisponibilidad + "', " + duracionDisponibilidad + ", " + 1
                 + ");");
 
         // depending on the id, it will create a hotel of hostal
