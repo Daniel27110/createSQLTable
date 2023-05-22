@@ -2,7 +2,7 @@ package App;
 
 public class App {
 
-    private static int total = 1000;
+    private static int total = 1600;
     private static int opreradoresMax = 0;
     private static int vecinosMax = 0;
     private static int alojamientosMax = 0;
@@ -53,7 +53,6 @@ public class App {
                 sentences += 1;
             }
         }
-
     }
 
     public static void reservas(int id) {
@@ -73,11 +72,11 @@ public class App {
         // the tiempoLimiteCancelacion is 7
         int tiempoLimiteCancelacion = 7;
 
-        // the hospedaje is between 1 and 1000
-        int hospedaje = (int) Math.floor(Math.random() * (1000 - 1 + 1) + 1);
+        // the hospedaje is alojamientosMax +1 and hospedajesMax
+        int hospedaje = (int) Math.floor(Math.random() * (hospedajesMax - alojamientosMax) + alojamientosMax + 1);
 
         // the cliente is between hospedajesMax +1 and clientesMax
-        int cliente = (int) Math.floor(Math.random() * (clientesMax - hospedajesMax + 1) + hospedajesMax);
+        int cliente = (int) Math.floor(Math.random() * (clientesMax - hospedajesMax) + hospedajesMax + 1);
 
         // the estado can be 'Activa', 'Cancelada'
         String estado = "";
@@ -254,7 +253,7 @@ public class App {
         int metraje = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
 
         // alojamientos are created from vecinosMax + 1 to alojamientosMax
-        int alojamiento = (int) Math.floor(Math.random() * (alojamientosMax - vecinosMax + 1) + vecinosMax);
+        int alojamiento = (int) Math.floor(Math.random() * (alojamientosMax - vecinosMax) + vecinosMax + 1);
 
         // formaDePago can be Diario, Mensual, Semestral
         String formaDePago = "";
