@@ -2,38 +2,57 @@ package App;
 
 public class App {
 
+    private static int total = 8000;
+    private static int opreradoresMax = 0;
+    private static int vecinosMax = 0;
+    private static int alojamientosMax = 0;
+    private static int hospedajesMax = 0;
+    private static int clientesMax = 0;
+
     public static void main(String[] args) {
 
         // creates one million sql sentences for the creation of information
         int sentences = 0;
-        int idCounter = 1;
-        int total = 1000;
+        int idCounter = 0;
 
         while (sentences < total) {
+            idCounter++;
             // each operator creates 3 sql sentences
             if (sentences <= total / 8) {
                 operadores(idCounter);
                 sentences += 3;
+                opreradoresMax = idCounter;
+
             } else if (sentences <= 2 * total / 8) {
+                // each vecino creates 2 sql sentences
+                vecino(idCounter);
+                sentences += 2;
+                vecinosMax = idCounter;
+
+            } else if (sentences <= 3 * total / 8) {
                 // each alojamiento creates 2 sql sentences
                 alojamientos(idCounter);
                 sentences += 2;
-            } else if (sentences <= 4 * total / 8) {
-                // each hospedaje creates up to 3 sql sentences
-                hospedajes(idCounter);
-                sentences += 3;
+                alojamientosMax = idCounter;
+
             } else if (sentences <= 5 * total / 8) {
+                // each hospedaje creates 2 sql sentences
+                hospedajes(idCounter);
+                sentences += 2;
+                hospedajesMax = idCounter;
+
+            } else if (sentences <= 6 * total / 8) {
                 // each cliente creates 2 sql sentences
                 clientes(idCounter);
                 sentences += 2;
+                clientesMax = idCounter;
+
             } else {
                 // each reserva creates 1 sql sentence
                 reservas(idCounter);
                 sentences += 1;
             }
-            idCounter++;
         }
-
     }
 
     public static void reservas(int id) {
@@ -50,14 +69,14 @@ public class App {
         // the duracionNoches is between 1 and 30
         int duracionNoches = (int) Math.floor(Math.random() * (30 - 1 + 1) + 1);
 
-        // the tiempoLimiteCancelacion is between 1 and 7
-        int tiempoLimiteCancelacion = (int) Math.floor(Math.random() * (7 - 1 + 1) + 1);
+        // the tiempoLimiteCancelacion is 7
+        int tiempoLimiteCancelacion = 7;
 
-        // the hospedaje is between 1 and 1000
-        int hospedaje = (int) Math.floor(Math.random() * (1000 - 1 + 1) + 1);
+        // the hospedaje is alojamientosMax +1 and hospedajesMax
+        int hospedaje = (int) Math.floor(Math.random() * (hospedajesMax - alojamientosMax) + alojamientosMax + 1);
 
-        // the cliente is between 100000 and 1000000
-        int cliente = (int) Math.floor(Math.random() * (1000000 - 100000 + 1) + 100000);
+        // the cliente is between hospedajesMax +1 and clientesMax
+        int cliente = (int) Math.floor(Math.random() * (clientesMax - hospedajesMax) + hospedajesMax + 1);
 
         // the estado can be 'Activa', 'Cancelada'
         String estado = "";
@@ -79,24 +98,11 @@ public class App {
         // example: INSERT INTO A_Cliente (Nombre, DocumentoDeIdentidad, Datos) VALUES
         // ('Juan Perez', 98347298, 1);
 
-        // the name of the cliente can be 'Juan Perez', 'Pedro Perez', 'Pablo Perez',
-        // 'Carlos Perez', 'Pepe Perez'
-        String nombre = "";
-        int nombreRandom = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
-        if (nombreRandom == 1) {
-            nombre = "Juan Perez";
-        } else if (nombreRandom == 2) {
-            nombre = "Pedro Perez";
-        } else if (nombreRandom == 3) {
-            nombre = "Pablo Perez";
-        } else if (nombreRandom == 4) {
-            nombre = "Carlos Perez";
-        } else if (nombreRandom == 5) {
-            nombre = "Pepe Perez";
-        }
+        // the name of the cliente is client + id
+        String nombre = "client" + id;
 
-        // the documentoDeIdentidad is between 100000 and 1000000
-        int documentoDeIdentidad = (int) Math.floor(Math.random() * (1000000 - 100000 + 1) + 100000);
+        // the documentoDeIdentidad is equal to the id
+        int documentoDeIdentidad = id;
 
         // we create a new datos
         datos(id);
@@ -111,24 +117,11 @@ public class App {
         // INSERT INTO A_Vecino (Nombre, DocumentoDeIdentidad, Datos) VALUES
         // ('Juanito el vecino', 123123, 7);
 
-        // the name of the vecino can be 'Juanito el vecino', 'Pedrito el vecino',
-        // 'Pablito el vecino', 'Carlitos el vecino', 'Pepito el vecino'
-        String nombre = "";
-        int nombreRandom = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
-        if (nombreRandom == 1) {
-            nombre = "Juanito el vecino";
-        } else if (nombreRandom == 2) {
-            nombre = "Pedrito el vecino";
-        } else if (nombreRandom == 3) {
-            nombre = "Pablito el vecino";
-        } else if (nombreRandom == 4) {
-            nombre = "Carlitos el vecino";
-        } else if (nombreRandom == 5) {
-            nombre = "Pepito el vecino";
-        }
+        // the name of the vecino is vecino + id
+        String nombre = "vecino" + id;
 
-        // the documentoDeIdentidad is between 100000 and 1000000
-        int documentoDeIdentidad = (int) Math.floor(Math.random() * (1000000 - 100000 + 1) + 100000);
+        // the documentoDeIdentidad is equal to the id
+        int documentoDeIdentidad = id;
 
         // we create a new datos
         datos(id);
@@ -143,9 +136,6 @@ public class App {
         // example: INSERT INTO A_Apartamento (Id, NumHabitaciones, Menaje, CostoTotal,
         // CostoArrendamiento, CostoInmueble, VecinoDueno) VALUES
         // (5, 5, 'colchon', 500000, 340000, 23000, 123123);
-
-        // we first create a vecino
-        vecino(id);
 
         // the number of habitaciones is between 1 and 10
         int numHabitaciones = (int) Math.floor(Math.random() * (10 - 1 + 1) + 1);
@@ -178,19 +168,24 @@ public class App {
             menaje = "licuadora";
         }
 
-        // the costoTotal is between 100000 and 1000000
-        int costoTotal = (int) Math.floor(Math.random() * (1000000 - 100000 + 1) + 100000);
-
         // the costoArrendamiento is between 100000 and 1000000
         int costoArrendamiento = (int) Math.floor(Math.random() * (1000000 - 100000 + 1) + 100000);
 
         // the costoInmueble is between 10000 and 100000
         int costoInmueble = (int) Math.floor(Math.random() * (100000 - 10000 + 1) + 10000);
 
+        // the costoTotal is a sum of the costoArrendamiento and the costoInmueble and a
+        // random number between 1000 and 10000
+        int costoTotal = costoArrendamiento + costoInmueble
+                + (int) Math.floor(Math.random() * (10000 - 1000 + 1) + 1000);
+
+        // vecinoID is between opreadoresMax +1 and vecinosMax
+        int vecinoID = (int) Math.floor(Math.random() * (vecinosMax - opreradoresMax + 1) + opreradoresMax);
+
         System.out.println(
                 "INSERT INTO A_Apartamento (Id, NumHabitaciones, Menaje, CostoTotal, CostoArrendamiento, CostoInmueble, VecinoDueno) VALUES");
         System.out.println("(" + id + ", " + numHabitaciones + ", '" + menaje + "', " + costoTotal + ", "
-                + costoArrendamiento + ", " + costoInmueble + ", " + id + ");");
+                + costoArrendamiento + ", " + costoInmueble + ", " + vecinoID + ");");
 
     }
 
@@ -231,8 +226,8 @@ public class App {
 
         int metraje = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
 
-        // alojamientos are created from 100001 to 200000
-        int alojamiento = (int) Math.floor(Math.random() * (200000 - 100001 + 1) + 100001);
+        // alojamientos are created from vecinosMax + 1 to alojamientosMax
+        int alojamiento = (int) Math.floor(Math.random() * (alojamientosMax - vecinosMax) + vecinosMax + 1);
 
         // formaDePago can be Diario, Mensual, Semestral
         String formaDePago = "";
@@ -302,10 +297,14 @@ public class App {
         String direccion = "direccion" + id;
         int capacidad = (int) Math.floor(Math.random() * (100 - 1 + 1) + 1);
         String ciudad = "ciudad" + id;
-        int operador = (int) Math.floor(Math.random() * (100000 / 3 - 1 + 1) + 1);
-        String fechaInicioDisponibilidadAño = "20" + (int) Math.floor(Math.random() * (25 - 0 + 1) + 0);
-        String fechaInicioDisponibilidadMes = "0" + (int) Math.floor(Math.random() * (9 - 1 + 1) + 1);
-        String fechaInicioDisponibilidadDia = "0" + (int) Math.floor(Math.random() * (9 - 1 + 1) + 1);
+        // operador is a number between 1 and operadoresMax
+        int operador = (int) Math.floor(Math.random() * (opreradoresMax - 1 + 1) + 1);
+
+        // Generate dates between 2018-01-01 and 2023-01-01
+        int fechaInicioDisponibilidadAño = (int) Math.floor(Math.random() * (2023 - 2018 + 1) + 2018);
+        int fechaInicioDisponibilidadMes = (int) Math.floor(Math.random() * (12 - 1 + 1) + 1);
+        int fechaInicioDisponibilidadDia = (int) Math.floor(Math.random() * (28 - 1 + 1) + 1);
+
         String fechaInicioDisponibilidad = fechaInicioDisponibilidadAño + "-" + fechaInicioDisponibilidadMes + "-"
                 + fechaInicioDisponibilidadDia;
         int duracionDisponibilidad = (int) Math.floor(Math.random() * (1000 - 1 + 1) + 1);
