@@ -98,21 +98,8 @@ public class App {
         // example: INSERT INTO A_Cliente (Nombre, DocumentoDeIdentidad, Datos) VALUES
         // ('Juan Perez', 98347298, 1);
 
-        // the name of the cliente can be 'Juan Perez', 'Pedro Perez', 'Pablo Perez',
-        // 'Carlos Perez', 'Pepe Perez'
-        String nombre = "";
-        int nombreRandom = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
-        if (nombreRandom == 1) {
-            nombre = "Juan Perez";
-        } else if (nombreRandom == 2) {
-            nombre = "Pedro Perez";
-        } else if (nombreRandom == 3) {
-            nombre = "Pablo Perez";
-        } else if (nombreRandom == 4) {
-            nombre = "Carlos Perez";
-        } else if (nombreRandom == 5) {
-            nombre = "Pepe Perez";
-        }
+        // the name of the cliente is client + id
+        String nombre = "client" + id;
 
         // the documentoDeIdentidad is equal to the id
         int documentoDeIdentidad = id;
@@ -130,21 +117,8 @@ public class App {
         // INSERT INTO A_Vecino (Nombre, DocumentoDeIdentidad, Datos) VALUES
         // ('Juanito el vecino', 123123, 7);
 
-        // the name of the vecino can be 'Juanito el vecino', 'Pedrito el vecino',
-        // 'Pablito el vecino', 'Carlitos el vecino', 'Pepito el vecino'
-        String nombre = "";
-        int nombreRandom = (int) Math.floor(Math.random() * (5 - 1 + 1) + 1);
-        if (nombreRandom == 1) {
-            nombre = "Juanito el vecino";
-        } else if (nombreRandom == 2) {
-            nombre = "Pedrito el vecino";
-        } else if (nombreRandom == 3) {
-            nombre = "Pablito el vecino";
-        } else if (nombreRandom == 4) {
-            nombre = "Carlitos el vecino";
-        } else if (nombreRandom == 5) {
-            nombre = "Pepito el vecino";
-        }
+        // the name of the vecino is vecino + id
+        String nombre = "vecino" + id;
 
         // the documentoDeIdentidad is equal to the id
         int documentoDeIdentidad = id;
