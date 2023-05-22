@@ -2,7 +2,7 @@ package App;
 
 public class App {
 
-    private static int total = 1600;
+    private static int total = 8000;
     private static int opreradoresMax = 0;
     private static int vecinosMax = 0;
     private static int alojamientosMax = 0;
@@ -36,9 +36,9 @@ public class App {
                 alojamientosMax = idCounter;
 
             } else if (sentences <= 5 * total / 8) {
-                // each hospedaje creates up to 3 sql sentences
+                // each hospedaje creates 2 sql sentences
                 hospedajes(idCounter);
-                sentences += 3;
+                sentences += 2;
                 hospedajesMax = idCounter;
 
             } else if (sentences <= 6 * total / 8) {
