@@ -2,7 +2,7 @@ package App;
 
 public class App {
 
-    private static int total = 8000;
+    private static int total = 1_000_000;
     private static int opreradoresMax = 0;
     private static int vecinosMax = 0;
     private static int alojamientosMax = 0;
@@ -53,6 +53,9 @@ public class App {
                 sentences += 1;
             }
         }
+
+        // Commits the changes
+        System.out.println("COMMIT;");
     }
 
     public static void reservas(int id) {
